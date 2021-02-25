@@ -34,13 +34,7 @@ pipeline{
         
       }
      }
-    stage('Test'){
-      steps{
-        echo 'Maven test'
-        sh 'mvn test'
-      }
-      
-  }
+    
      stage("Build & SonarQube analysis") {
             agent any
             steps {
