@@ -6,21 +6,41 @@ pipeline{
     }
   }
   stages {
-      stage("Maven Build"){
-          steps{
-              sh 'mvn -B -DskipTests clean package'
-          }
+     stage('MavenVertion'){
+      steps{
+        echo 'Maven Vaersion'
+        sh 'mvn -version'
+       
       }
-      stage('Maven Test'){
-            steps{
-                sh 'mvn test'
-            }
-            post{
-            always{
-                junit 'target/surefire-reports/*.xml'
-            }
-        }
-        }
+     }
+    stage('Clean'){
+      steps{
+        echo 'Clean'
+        sh 'mvn clean'
+       
+      }
+     }
+    stage('Compile'){
+      steps{
+        echo 'Compile'
+        sh 'mvn compile'
+        
+      }
+     }
+    stage('package'){
+      steps{
+        echo 'Packing '
+        sh 'mvn -B -DskipTests clean package'
+        
+      }
+     }
+    stage('Test'){
+      steps{
+        echo 'Maven test'
+        sh 'mvn test'
+      }
+      
+  }
      stage("Build & SonarQube analysis") {
             agent any
             steps {
